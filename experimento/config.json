@@ -1,12 +1,12 @@
 {
   "v": 1,
-  "doi": null,
+  "doi": "10.5281/zenodo.23138643",
   "protocolo": {
     "arquivo": "artigos/V/aparato/PROTOCOLO_V_2026-10-02.md",
-    "sha256_deposito": null
+    "sha256_deposito": "f6287c7ac89258c625815f1f1dee5322f02e97404ec835fab94650e497e0a820"
   },
   "sementes": {
-    "principal": null,
+    "principal": 17737563999191587014,
     "ensaio": 0,
     "bootstrap": 10000
   },
