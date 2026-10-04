@@ -357,7 +357,14 @@ def checa_janela(ctx: Contexto, par: dict) -> None:
             raise Recusa(2, f"ensaio: par ({c[:12]}, {p[:12]}) fora da janela de ensaio "
                             f"({cc}, {cp}); corrida inteira abortada (§0)")
     else:
-        if cc != ("quadro" if ctrl != "nulo" else cp) or cp not in ("quadro", "ensaio") or cc == "fora":
+        # EMENDA 3 (2026-10-04): o par e definido por c (§2.5: c do quadro, p o seu primeiro pai, de QUALQUER janela).
+        # A guarda antiga exigia p em quadro/ensaio e abortava o zlib no 1o par (p = 10daf0d, fronteira "fora").
+        # Nulo (p, p): exige que o c de onde veio ("de") seja do quadro.
+        if ctrl == "nulo":
+            ok = cc == cp and bool(par.get("de")) and ctx.J.classe(par["de"]) == "quadro"
+        else:
+            ok = cc == "quadro"
+        if not ok:
             raise Recusa(2, f"confirmatorio: par ({c[:12]}, {p[:12]}) com janela ({cc}, {cp}) invalida")
 
 

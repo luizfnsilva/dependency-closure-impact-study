@@ -1,12 +1,12 @@
 {
   "v": 1,
-  "doi": "10.5281/zenodo.23138643",
+  "doi": null,
   "protocolo": {
     "arquivo": "artigos/V/aparato/PROTOCOLO_V_2026-10-02.md",
-    "sha256_deposito": "f6287c7ac89258c625815f1f1dee5322f02e97404ec835fab94650e497e0a820"
+    "sha256_deposito": null
   },
   "sementes": {
-    "principal": 17737563999191587014,
+    "principal": null,
     "ensaio": 0,
     "bootstrap": 10000
   },
@@ -82,7 +82,7 @@
     "ci/ambiente.yml": "05e95a3bfecd56e9343bd9f2e902ec5cdac65e22024b8683c400650de017066c",
     "ci/oraculo.yml": "031156c877bf07888780960d5cf9a4906ced0ce87662b38a93fc14fac981257b",
     "ci/requirements.txt": "4b0743ae6d1548e888e79d0c8cbdfc296aa06a1c58fd0303722718749527ef4e",
-    "corre.py": "3e4ee678f45f0a6d6ca04f5ff0ebe61ed3f46561ee54753d054ccbecc0dd1154",
+    "corre.py": "eb8cefc831a38b7a87763e1e2200d9f7f0aef44e6a33c646ab8c86b5ac806b9b",
     "detectores/__init__.py": "b030b4117a9466e8a8483b43cd6766f1f6c832b225c9b72568164f2ee6c3439c",
     "detectores/c_classes.py": "e17610114b6178c983fede49df02ac10849e27d6a9d726ceba4196c875347319",
     "detectores/tz_classes.py": "898d253747b3812ac86f14ba74867dc77f8d0c9e8a48608f79621f26ebef93c1",
