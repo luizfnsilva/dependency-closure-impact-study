@@ -61,6 +61,9 @@ jobs:
           make --version | head -n1 | grep -qx 'GNU Make 4.3' || { make --version | head -n1; exit 1; }
           dpkg-query -W gcc-13 make
 
+
+  # EMENDA 4: zlib e Lua como antes (um job por corpus); o tz em 16 partes paralelas (corre.py --parte K/16), cada
+  # uma com arquivo e cadeia proprios; depois `juntar` refaz saidas/tz.jsonl na ordem da lista do protocolo.
   oraculo:
     name: oraculo ${{ matrix.corpus }}
     needs: portao
@@ -69,7 +72,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        corpus: [tz, zlib, lua]
+        corpus: [zlib, lua]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -88,11 +91,8 @@ jobs:
           CONG=$(jq -r ".corpora.${{ matrix.corpus }}.congelamento" "$EXP/config.json")
           git clone --quiet "$URL" "$RUNNER_TEMP/corpus"
           git -C "$RUNNER_TEMP/corpus" cat-file -e "$CONG^{commit}"
-      - name: zic e zdump de tz@bec4d95a (so tz)
-        if: matrix.corpus == 'tz'
-        run: bash "$EXP/oraculo/tz_ferramentas.sh" "$RUNNER_TEMP/corpus" "$RUNNER_TEMP/tzbin"
       - name: portao do runner (refaz a guarda do §6.6)
-        run: python "$EXP/corre.py" portao --tz-bin "$RUNNER_TEMP/tzbin"
+        run: python "$EXP/corre.py" portao
       - name: pares do quadro, oraculo e bracos (commits periodicos do JSONL)
         shell: bash
         run: |
@@ -101,13 +101,84 @@ jobs:
           ARGS=""
           [ -s "$EXP/saidas/$C.jsonl" ] && ARGS="--retomar"
           python "$EXP/corre.py" rodar --modo confirmatorio --corpus "$C" --repo "$RUNNER_TEMP/corpus" \
-            --tz-bin "$RUNNER_TEMP/tzbin" --publicar-cada 25 $ARGS
+            --publicar-cada 25 $ARGS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: saidas-${{ matrix.corpus }}
           path: ${{ env.EXP }}/saidas/${{ matrix.corpus }}.jsonl
           if-no-files-found: ignore
+
+  oraculo_tz:
+    name: oraculo tz parte ${{ matrix.parte }}/16
+    needs: portao
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.16"
+      - name: wheels por sha256
+        run: |
+          python -m pip install --require-hashes --only-binary=:all: --no-deps -r "$EXP/ci/requirements.txt"
+      - name: clone do tz (historico inteiro) e commit de congelamento
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL=$(jq -r ".corpora.tz.repositorio" "$EXP/config.json")
+          CONG=$(jq -r ".corpora.tz.congelamento" "$EXP/config.json")
+          git clone --quiet "$URL" "$RUNNER_TEMP/corpus"
+          git -C "$RUNNER_TEMP/corpus" cat-file -e "$CONG^{commit}"
+      - name: zic e zdump de tz@bec4d95a
+        run: bash "$EXP/oraculo/tz_ferramentas.sh" "$RUNNER_TEMP/corpus" "$RUNNER_TEMP/tzbin"
+      - name: portao do runner (refaz a guarda do §6.6)
+        run: python "$EXP/corre.py" portao --tz-bin "$RUNNER_TEMP/tzbin"
+      - name: pares desta parte, oraculo e bracos
+        shell: bash
+        run: |
+          set -euo pipefail
+          K=${{ matrix.parte }}
+          ARGS=""
+          [ -s "$EXP/saidas/tz.parte-$K-de-16.jsonl" ] && ARGS="--retomar"
+          python "$EXP/corre.py" rodar --modo confirmatorio --corpus tz --repo "$RUNNER_TEMP/corpus" \
+            --tz-bin "$RUNNER_TEMP/tzbin" --parte "$K/16" --publicar-cada 10 $ARGS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: saidas-tz-parte-${{ matrix.parte }}
+          path: ${{ env.EXP }}/saidas/tz.parte-${{ matrix.parte }}-de-16.jsonl
+          if-no-files-found: ignore
+
+  juntar_tz:
+    name: juntar as 16 partes do tz
+    needs: oraculo_tz
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.16"
+      - run: |
+          python -m pip install --require-hashes --only-binary=:all: --no-deps -r "$EXP/ci/requirements.txt"
+      - name: clone do tz
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --quiet "$(jq -r '.corpora.tz.repositorio' "$EXP/config.json")" "$RUNNER_TEMP/corpus"
+      - name: juntar (cadeias conferidas; todo par da lista exatamente uma vez)
+        run: |
+          python "$EXP/corre.py" juntar --modo confirmatorio --corpus tz --repo "$RUNNER_TEMP/corpus" \
+            --partes 16 --publicar
 
   reexecucao:
     name: reexecucao 10% ${{ matrix.corpus }} (segunda maquina)
@@ -117,10 +188,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        corpus: [tz, zlib, lua]
+        corpus: [zlib, lua]
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -150,4 +222,45 @@ jobs:
           git config user.email v-runner@users.noreply.github.com
           git add "$EXP/saidas/reexec_${{ matrix.corpus }}.json" || true
           git diff --cached --quiet || git commit -m "runner: reexecucao ${{ matrix.corpus }}"
+          for i in 1 2 3 4 5; do git pull --rebase --autostash && git push && break; sleep 5; done
+
+  reexecucao_tz:
+    name: reexecucao 10% tz parte ${{ matrix.parte }}/8 (segunda maquina)
+    needs: juntar_tz
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.16"
+      - run: |
+          python -m pip install --require-hashes --only-binary=:all: --no-deps -r "$EXP/ci/requirements.txt"
+      - name: clone do tz e ferramentas
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --quiet "$(jq -r '.corpora.tz.repositorio' "$EXP/config.json")" "$RUNNER_TEMP/corpus"
+          bash "$EXP/oraculo/tz_ferramentas.sh" "$RUNNER_TEMP/corpus" "$RUNNER_TEMP/tzbin"
+      - name: a mesma amostra de 10%, parte ${{ matrix.parte }} de 8
+        run: |
+          python "$EXP/corre.py" reexecutar --modo confirmatorio --corpus tz \
+            --repo "$RUNNER_TEMP/corpus" --tz-bin "$RUNNER_TEMP/tzbin" --parte "${{ matrix.parte }}/8" \
+            --original "$EXP/saidas/tz.jsonl" \
+            --relatorio "$EXP/saidas/reexec_tz.parte-${{ matrix.parte }}-de-8.json"
+      - name: commit do relatorio
+        if: always()
+        shell: bash
+        run: |
+          git config user.name v-runner
+          git config user.email v-runner@users.noreply.github.com
+          git add "$EXP/saidas/reexec_tz.parte-${{ matrix.parte }}-de-8.json" || true
+          git diff --cached --quiet || git commit -m "runner: reexecucao tz parte ${{ matrix.parte }}"
           for i in 1 2 3 4 5; do git pull --rebase --autostash && git push && break; sleep 5; done

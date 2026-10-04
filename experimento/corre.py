@@ -539,6 +539,10 @@ def cmd_rodar(a) -> int:
     else:
         saida = RAIZ / "saidas" / f"{ctx.corpus}.jsonl"
         c0 = cfg["corpora"][ctx.corpus]["congelamento"]
+    parte = _parte(a)
+    if parte and a.modo != "fixture":       # EMENDA 4: arquivo proprio por parte, cadeia propria
+        saida = saida.with_name(f"{ctx.corpus}.parte-{parte[0]}-de-{parte[1]}.jsonl")
+    if a.modo == "confirmatorio":
         if quadro.git(ctx.repo, "rev-parse", "--verify", "-q", f"{c0}^{{commit}}", ok=True) is False:
             raise Recusa(2, f"clone sem o commit de congelamento {c0[:12]}")
     cadeia = Cadeia(saida, sha_cfg, retomar=a.retomar)
@@ -547,6 +551,8 @@ def cmd_rodar(a) -> int:
     else:
         lista = quadro.montar_lista(a.modo, ctx.corpus, ctx.repo, cfg,
                                     a.amostra if a.modo == "ensaio" else None)
+        if parte:
+            lista = filtra_parte(lista, *parte)
     vistos = {(r["p"], r["c"], r["controle"]) for r in cadeia.registros()}
     pub = (lambda m: publicar_git([saida], m)) if a.publicar_cada else None
     regs = executar_lista(ctx, lista, cadeia, vistos, a.limite if a.modo != "confirmatorio" else None,
@@ -561,6 +567,72 @@ def cmd_rodar(a) -> int:
     print(json.dumps({"modo": a.modo, "corpus": ctx.corpus, "saida": str(saida), "linhas": cadeia.n,
                       "novos": len(regs), **dict(sorted(cont.items())),
                       **({"ENSAIO": True} if a.modo == "ensaio" else {})}, ensure_ascii=False))
+    return 0
+
+
+# ============================================================ EMENDA 4: partes (so engenharia de execucao)
+def _parte(a) -> tuple[int, int] | None:
+    """--parte K/N -> (K, N), 0 <= K < N. Sem a opcao: None (execucao inteira, como antes)."""
+    v = getattr(a, "parte", None)
+    if not v:
+        return None
+    m = re.fullmatch(r"(\d+)/(\d+)", v)
+    if not m or not 0 <= int(m.group(1)) < int(m.group(2)):
+        raise Recusa(2, f"--parte invalida: {v!r} (esperado K/N com 0 <= K < N)")
+    return int(m.group(1)), int(m.group(2))
+
+
+def grupos_da_lista(lista: list[dict]) -> list[list[dict]]:
+    """Cada par nulo fica no grupo do par principal logo antes dele (montar_lista o poe ali, e o nulo reusa as
+    execucoes p1/p2 desse principal). Placebo e tag sao grupos de um par."""
+    grupos: list[list[dict]] = []
+    for d in lista:
+        if d.get("controle") == "nulo" and grupos:
+            grupos[-1].append(d)
+        else:
+            grupos.append([d])
+    return grupos
+
+
+def filtra_parte(lista: list[dict], k: int, n: int) -> list[dict]:
+    """Os grupos de indice i com i % n == k, na ordem da lista. Nenhum par muda; so quem o executa."""
+    return [d for i, g in enumerate(grupos_da_lista(lista)) if i % n == k for d in g]
+
+
+def cmd_juntar(a) -> int:
+    """Junta as N partes de um corpus num unico <corpus>.jsonl, na ORDEM da lista do protocolo, com cadeia nova a
+    partir do sha256 do config. Cada parte tem a cadeia conferida inteira; todo par da lista tem de aparecer
+    exatamente uma vez; o corpo de cada registro (sem `h`) e copiado byte a byte. Recusa 3 se faltar ou sobrar par."""
+    cfg, sha_cfg = carregar_config(a.config)
+    if a.modo == "confirmatorio":
+        guarda_confirmatoria(a.config, RAIZ, a.tz_bin or os.environ.get("V_TZ_BIN"))
+    ctx = _ctx_de_args(a, cfg, sha_cfg)
+    base = (ENSAIO_DIR / f"{ctx.corpus}_corre.jsonl") if a.modo == "ensaio" else RAIZ / "saidas" / f"{ctx.corpus}.jsonl"
+    regs: dict = {}
+    for k in range(a.partes):
+        arq = base.with_name(f"{ctx.corpus}.parte-{k}-de-{a.partes}.jsonl")
+        if not arq.exists():
+            raise Recusa(3, f"parte ausente: {arq.name}")
+        verificar_cadeia(arq, sha_cfg)
+        for L in arq.read_bytes().split(b"\n"):
+            if not L:
+                continue
+            r = json.loads(L)
+            x = (r["p"], r["c"], r["controle"])
+            if x in regs:
+                raise Recusa(3, f"par repetido entre partes: {x}")
+            regs[x] = {k_: v for k_, v in r.items() if k_ != "h"}
+    lista = quadro.montar_lista(a.modo, ctx.corpus, ctx.repo, cfg, a.amostra if a.modo == "ensaio" else None)
+    chaves = [(d["p"], d["c"], d["controle"]) for d in lista]
+    faltam, sobram = [x for x in chaves if x not in regs], set(regs) - set(chaves)
+    if faltam or sobram:
+        raise Recusa(3, f"juntar: faltam {len(faltam)} e sobram {len(sobram)} pares (ex.: {(faltam or list(sobram))[:2]})")
+    cadeia = Cadeia(base, sha_cfg, retomar=False)
+    for x in chaves:
+        cadeia.anexar(regs[x])
+    if a.publicar:
+        publicar_git([base], f"{ctx.corpus}: juntado de {a.partes} partes ({cadeia.n} registros)")
+    print(json.dumps({"corpus": ctx.corpus, "partes": a.partes, "registros": cadeia.n, "saida": str(base)}))
     return 0
 
 
@@ -604,6 +676,10 @@ def cmd_reexecutar(a) -> int:
     idx = {(d["p"], d["c"], d["controle"]): i for i, d in enumerate(lista)}
     ordem = sorted({i for x in alvo if x in idx for i in ([idx[x]] + ([idx[x] - 1] if x[2] == "nulo" else []))})
     sub = [lista[i] for i in ordem]
+    parte = _parte(a)
+    if parte:   # EMENDA 4: a MESMA amostra de 10%, dividida em grupos (nulo junto do seu principal)
+        sub = filtra_parte(sub, *parte)
+        alvo = {x for x in alvo if x in {(d["p"], d["c"], d["controle"]) for d in sub}}
     novos = executar_lista(ctx, sub, None, set())
     novos_por = {chave(r): r for r in novos}
     dif, ok = [], 0
@@ -617,7 +693,8 @@ def cmd_reexecutar(a) -> int:
             ok += 1
         else:
             dif.append({"par": list(x), "motivo": "bytes diferentes"})
-    rel = {"corpus": ctx.corpus, "modo": a.modo, "populacao": len(pop), "amostra": len(alvo), "iguais": ok,
+    rel = {"corpus": ctx.corpus, "modo": a.modo, "parte": a.parte if getattr(a, "parte", None) else None,
+           "populacao": len(pop), "amostra": len(alvo), "iguais": ok,
            "diferentes": dif, "maquina": os.environ.get("RUNNER_NAME", "local")}
     destino = Path(a.relatorio) if a.relatorio else RAIZ / "saidas" / f"reexec_{ctx.corpus}.json"
     destino.parent.mkdir(parents=True, exist_ok=True)
@@ -646,10 +723,16 @@ def parser() -> argparse.ArgumentParser:
     r.add_argument("--retomar", action="store_true")
     r.add_argument("--limite", type=int)
     r.add_argument("--publicar-cada", type=int, default=0)
+    r.add_argument("--parte", help="K/N (EMENDA 4): so os grupos i com i %% N == K, em arquivo proprio")
+    j = sub.add_parser("juntar")
+    comum(j)
+    j.add_argument("--partes", type=int, required=True)
+    j.add_argument("--publicar", action="store_true")
     x = sub.add_parser("reexecutar")
     comum(x)
     x.add_argument("--original", required=True)
     x.add_argument("--relatorio")
+    x.add_argument("--parte", help="K/N (EMENDA 4): so os grupos i com i %% N == K da amostra de 10%%")
     s = sub.add_parser("portao")
     s.add_argument("--config", default=str(CONFIG))
     s.add_argument("--tz-bin")
@@ -669,7 +752,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(a)
     try:
         return {"rodar": cmd_rodar, "portao": cmd_portao, "pares": cmd_pares,
-                "reexecutar": cmd_reexecutar}.get(args.cmd, lambda _: (parser().print_help(), 2)[1])(args)
+                "reexecutar": cmd_reexecutar, "juntar": cmd_juntar}.get(args.cmd, lambda _: (parser().print_help(), 2)[1])(args)
     except Recusa as e:
         return e.codigo
 
