@@ -1,0 +1,132 @@
+{
+ "rotulo": "EXPLORATORIA pos-dados (DESVIO 6); nao substitui a H7 confirmatoria",
+ "corpus": "tz",
+ "pares_primarios_executados": 839,
+ "reconstruidos_iguais": 839,
+ "divergentes_excluidos": [],
+ "familia": [
+  "rho:Rule>Rule:M",
+  "rho:Rule>Rule:A",
+  "rho:Rule>Rule:D",
+  "rho:Rule>Rule:R",
+  "alfa:Rule>Rule",
+  "rho:Rule>Zone:M",
+  "rho:Rule>Zone:A",
+  "rho:Rule>Zone:D",
+  "rho:Rule>Zone:R",
+  "alfa:Rule>Zone",
+  "rho:Rule>Link:M",
+  "rho:Rule>Link:A",
+  "rho:Rule>Link:D",
+  "rho:Rule>Link:R",
+  "alfa:Rule>Link",
+  "rho:Zone>Rule:M",
+  "rho:Zone>Rule:A",
+  "rho:Zone>Rule:D",
+  "rho:Zone>Rule:R",
+  "alfa:Zone>Rule",
+  "rho:Zone>Zone:M",
+  "rho:Zone>Zone:A",
+  "rho:Zone>Zone:D",
+  "rho:Zone>Zone:R",
+  "alfa:Zone>Zone",
+  "rho:Zone>Link:M",
+  "rho:Zone>Link:A",
+  "rho:Zone>Link:D",
+  "rho:Zone>Link:R",
+  "alfa:Zone>Link",
+  "rho:Link>Rule:M",
+  "rho:Link>Rule:A",
+  "rho:Link>Rule:D",
+  "rho:Link>Rule:R",
+  "alfa:Link>Rule",
+  "rho:Link>Zone:M",
+  "rho:Link>Zone:A",
+  "rho:Link>Zone:D",
+  "rho:Link>Zone:R",
+  "alfa:Link>Zone",
+  "rho:Link>Link:M",
+  "rho:Link>Link:A",
+  "rho:Link>Link:D",
+  "rho:Link>Link:R",
+  "alfa:Link>Link"
+ ],
+ "h7": {
+  "a": {
+   "tz": {
+    "T1a": {
+     "status": "testada",
+     "instancias_da_classe": 231,
+     "classe_exercida": true,
+     "refutada": false,
+     "exprimivel_por_regra_tipada": false,
+     "rho_seguras_que_removem": [],
+     "rho_que_removem": {
+      "rho:Rule>Zone:M": {
+       "remove": 231,
+       "fn_novo": 289,
+       "pares_com_efeito": 478
+      }
+     }
+    },
+    "T2": {
+     "status": "testada",
+     "instancias_da_classe": 8857,
+     "classe_exercida": true,
+     "refutada": false,
+     "exprimivel_por_regra_tipada": false,
+     "rho_seguras_que_removem": [],
+     "rho_que_removem": {
+      "rho:Rule>Zone:M": {
+       "remove": 6038,
+       "fn_novo": 289,
+       "pares_com_efeito": 478
+      },
+      "rho:Zone>Link:M": {
+       "remove": 1008,
+       "fn_novo": 243,
+       "pares_com_efeito": 235
+      }
+     }
+    }
+   },
+   "zlib": {
+    "T2": {
+     "status": "nao_testavel",
+     "refutada": null
+    }
+   },
+   "lua": {
+    "T2": {
+     "status": "nao_testavel",
+     "refutada": null
+    }
+   }
+  },
+  "b": {
+   "zlib": {
+    "status": "nao_testavel",
+    "refutada": null
+   }
+  }
+ },
+ "efeitos_por_regra": {
+  "rho:Rule>Zone:M": {
+   "fn_novo": 289,
+   "pares_com_efeito": 478,
+   "removidas": {
+    "T1a": 231,
+    "T2": 6038,
+    "T5": 281
+   }
+  },
+  "rho:Zone>Link:M": {
+   "fn_novo": 243,
+   "pares_com_efeito": 235,
+   "removidas": {
+    "T5": 142,
+    "T2": 1008
+   }
+  }
+ }
+}

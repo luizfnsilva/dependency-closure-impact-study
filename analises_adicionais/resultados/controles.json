@@ -1,0 +1,83 @@
+{
+ "controles": {
+  "lua": {
+   "nulo": {
+    "executados": 574,
+    "n": 600,
+    "violacoes": 0
+   },
+   "placebo": {
+    "AIS_nao_vazio": 0,
+    "executados": 37,
+    "instancias_T4": 0,
+    "n": 37,
+    "reportados_como_T4": []
+   },
+   "tag": {
+    "n": 0
+   }
+  },
+  "tz": {
+   "nulo": {
+    "executados": 839,
+    "n": 903,
+    "violacoes": 0
+   },
+   "placebo": {
+    "AIS_nao_vazio": 0,
+    "executados": 48,
+    "instancias_T4": 0,
+    "n": 50,
+    "reportados_como_T4": []
+   },
+   "tag": {
+    "n": 88
+   }
+  },
+  "zlib": {
+   "nulo": {
+    "executados": 501,
+    "n": 502,
+    "violacoes": 0
+   },
+   "placebo": {
+    "AIS_nao_vazio": 0,
+    "executados": 50,
+    "instancias_T4": 0,
+    "n": 50,
+    "reportados_como_T4": []
+   },
+   "tag": {
+    "n": 0
+   }
+  }
+ },
+ "entradas": [
+  {
+   "arquivo": "experimento/saidas/tz.jsonl",
+   "cadeia": "integra",
+   "campos_ausentes_preenchidos_com_null": {},
+   "corpus": "tz",
+   "linhas": 1944,
+   "sha256": "b0916e3f4154748240faaaa10b77585bca0161c2d7b0579805390445cfea827c"
+  },
+  {
+   "arquivo": "experimento/saidas/zlib.jsonl",
+   "cadeia": "integra",
+   "campos_ausentes_preenchidos_com_null": {},
+   "corpus": "zlib",
+   "linhas": 1054,
+   "sha256": "4261a7e550b5bf84c7bb6eaf207f96f43e94b1eccd0e01a56fcc5f53bca6ffbd"
+  },
+  {
+   "arquivo": "experimento/saidas/lua.jsonl",
+   "cadeia": "integra",
+   "campos_ausentes_preenchidos_com_null": {},
+   "corpus": "lua",
+   "linhas": 1237,
+   "sha256": "fe23a17c1e6033692f705e5634b7df999393739344f300f77114d50604a64f23"
+  }
+ ],
+ "marca": "CONFIRMATORIO",
+ "npm": {}
+}

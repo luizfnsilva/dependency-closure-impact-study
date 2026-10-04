@@ -1,0 +1,277 @@
+{
+ "rotulo": "EXPLORATORIA pos-dados (DESVIO 6); nao substitui a H7 confirmatoria",
+ "corpus": "zlib",
+ "pares_primarios_executados": 500,
+ "reconstruidos_iguais": 500,
+ "divergentes_excluidos": [],
+ "familia": [
+  "rho:fonte>fonte:M",
+  "rho:fonte>fonte:A",
+  "rho:fonte>fonte:D",
+  "rho:fonte>fonte:R",
+  "alfa:fonte>fonte",
+  "rho:fonte>cabecalho:M",
+  "rho:fonte>cabecalho:A",
+  "rho:fonte>cabecalho:D",
+  "rho:fonte>cabecalho:R",
+  "alfa:fonte>cabecalho",
+  "rho:fonte>cabecalho_gerado:M",
+  "rho:fonte>cabecalho_gerado:A",
+  "rho:fonte>cabecalho_gerado:D",
+  "rho:fonte>cabecalho_gerado:R",
+  "alfa:fonte>cabecalho_gerado",
+  "rho:fonte>configuracao:M",
+  "rho:fonte>configuracao:A",
+  "rho:fonte>configuracao:D",
+  "rho:fonte>configuracao:R",
+  "alfa:fonte>configuracao",
+  "rho:fonte>objeto:M",
+  "rho:fonte>objeto:A",
+  "rho:fonte>objeto:D",
+  "rho:fonte>objeto:R",
+  "alfa:fonte>objeto",
+  "rho:cabecalho>fonte:M",
+  "rho:cabecalho>fonte:A",
+  "rho:cabecalho>fonte:D",
+  "rho:cabecalho>fonte:R",
+  "alfa:cabecalho>fonte",
+  "rho:cabecalho>cabecalho:M",
+  "rho:cabecalho>cabecalho:A",
+  "rho:cabecalho>cabecalho:D",
+  "rho:cabecalho>cabecalho:R",
+  "alfa:cabecalho>cabecalho",
+  "rho:cabecalho>cabecalho_gerado:M",
+  "rho:cabecalho>cabecalho_gerado:A",
+  "rho:cabecalho>cabecalho_gerado:D",
+  "rho:cabecalho>cabecalho_gerado:R",
+  "alfa:cabecalho>cabecalho_gerado",
+  "rho:cabecalho>configuracao:M",
+  "rho:cabecalho>configuracao:A",
+  "rho:cabecalho>configuracao:D",
+  "rho:cabecalho>configuracao:R",
+  "alfa:cabecalho>configuracao",
+  "rho:cabecalho>objeto:M",
+  "rho:cabecalho>objeto:A",
+  "rho:cabecalho>objeto:D",
+  "rho:cabecalho>objeto:R",
+  "alfa:cabecalho>objeto",
+  "rho:cabecalho_gerado>fonte:M",
+  "rho:cabecalho_gerado>fonte:A",
+  "rho:cabecalho_gerado>fonte:D",
+  "rho:cabecalho_gerado>fonte:R",
+  "alfa:cabecalho_gerado>fonte",
+  "rho:cabecalho_gerado>cabecalho:M",
+  "rho:cabecalho_gerado>cabecalho:A",
+  "rho:cabecalho_gerado>cabecalho:D",
+  "rho:cabecalho_gerado>cabecalho:R",
+  "alfa:cabecalho_gerado>cabecalho",
+  "rho:cabecalho_gerado>cabecalho_gerado:M",
+  "rho:cabecalho_gerado>cabecalho_gerado:A",
+  "rho:cabecalho_gerado>cabecalho_gerado:D",
+  "rho:cabecalho_gerado>cabecalho_gerado:R",
+  "alfa:cabecalho_gerado>cabecalho_gerado",
+  "rho:cabecalho_gerado>configuracao:M",
+  "rho:cabecalho_gerado>configuracao:A",
+  "rho:cabecalho_gerado>configuracao:D",
+  "rho:cabecalho_gerado>configuracao:R",
+  "alfa:cabecalho_gerado>configuracao",
+  "rho:cabecalho_gerado>objeto:M",
+  "rho:cabecalho_gerado>objeto:A",
+  "rho:cabecalho_gerado>objeto:D",
+  "rho:cabecalho_gerado>objeto:R",
+  "alfa:cabecalho_gerado>objeto",
+  "rho:configuracao>fonte:M",
+  "rho:configuracao>fonte:A",
+  "rho:configuracao>fonte:D",
+  "rho:configuracao>fonte:R",
+  "alfa:configuracao>fonte",
+  "rho:configuracao>cabecalho:M",
+  "rho:configuracao>cabecalho:A",
+  "rho:configuracao>cabecalho:D",
+  "rho:configuracao>cabecalho:R",
+  "alfa:configuracao>cabecalho",
+  "rho:configuracao>cabecalho_gerado:M",
+  "rho:configuracao>cabecalho_gerado:A",
+  "rho:configuracao>cabecalho_gerado:D",
+  "rho:configuracao>cabecalho_gerado:R",
+  "alfa:configuracao>cabecalho_gerado",
+  "rho:configuracao>configuracao:M",
+  "rho:configuracao>configuracao:A",
+  "rho:configuracao>configuracao:D",
+  "rho:configuracao>configuracao:R",
+  "alfa:configuracao>configuracao",
+  "rho:configuracao>objeto:M",
+  "rho:configuracao>objeto:A",
+  "rho:configuracao>objeto:D",
+  "rho:configuracao>objeto:R",
+  "alfa:configuracao>objeto",
+  "rho:objeto>fonte:M",
+  "rho:objeto>fonte:A",
+  "rho:objeto>fonte:D",
+  "rho:objeto>fonte:R",
+  "alfa:objeto>fonte",
+  "rho:objeto>cabecalho:M",
+  "rho:objeto>cabecalho:A",
+  "rho:objeto>cabecalho:D",
+  "rho:objeto>cabecalho:R",
+  "alfa:objeto>cabecalho",
+  "rho:objeto>cabecalho_gerado:M",
+  "rho:objeto>cabecalho_gerado:A",
+  "rho:objeto>cabecalho_gerado:D",
+  "rho:objeto>cabecalho_gerado:R",
+  "alfa:objeto>cabecalho_gerado",
+  "rho:objeto>configuracao:M",
+  "rho:objeto>configuracao:A",
+  "rho:objeto>configuracao:D",
+  "rho:objeto>configuracao:R",
+  "alfa:objeto>configuracao",
+  "rho:objeto>objeto:M",
+  "rho:objeto>objeto:A",
+  "rho:objeto>objeto:D",
+  "rho:objeto>objeto:R",
+  "alfa:objeto>objeto"
+ ],
+ "h7": {
+  "a": {
+   "tz": {
+    "T1a": {
+     "status": "nao_testavel",
+     "refutada": null
+    },
+    "T2": {
+     "status": "nao_testavel",
+     "refutada": null
+    }
+   },
+   "zlib": {
+    "T2": {
+     "status": "testada",
+     "instancias_da_classe": 918,
+     "classe_exercida": true,
+     "refutada": false,
+     "exprimivel_por_regra_tipada": false,
+     "rho_seguras_que_removem": [],
+     "rho_que_removem": {
+      "rho:cabecalho>objeto:M": {
+       "remove": 881,
+       "fn_novo": 154,
+       "pares_com_efeito": 181
+      },
+      "rho:fonte>objeto:M": {
+       "remove": 12,
+       "fn_novo": 107,
+       "pares_com_efeito": 166
+      }
+     }
+    }
+   },
+   "lua": {
+    "T2": {
+     "status": "nao_testavel",
+     "refutada": null
+    }
+   }
+  },
+  "b": {
+   "zlib": {
+    "status": "testada",
+    "instancias_T4": 28,
+    "classe_exercida": true,
+    "refutada": false,
+    "T4_exprimivel_por_regra_tipada": true,
+    "alfa_que_removem_todas": [
+     "alfa:configuracao>cabecalho",
+     "alfa:configuracao>cabecalho_gerado",
+     "alfa:configuracao>fonte",
+     "alfa:configuracao>objeto"
+    ],
+    "alfa": {
+     "alfa:configuracao>cabecalho": {
+      "remove": 28,
+      "fn_novo": 0
+     },
+     "alfa:configuracao>cabecalho_gerado": {
+      "remove": 28,
+      "fn_novo": 0
+     },
+     "alfa:configuracao>fonte": {
+      "remove": 28,
+      "fn_novo": 0
+     },
+     "alfa:configuracao>objeto": {
+      "remove": 28,
+      "fn_novo": 0
+     }
+    }
+   }
+  }
+ },
+ "efeitos_por_regra": {
+  "alfa:configuracao>cabecalho": {
+   "fn_novo": 0,
+   "pares_com_efeito": 3,
+   "removidas": {
+    "T4": 28
+   }
+  },
+  "alfa:configuracao>cabecalho_gerado": {
+   "fn_novo": 0,
+   "pares_com_efeito": 3,
+   "removidas": {
+    "T4": 28
+   }
+  },
+  "alfa:configuracao>fonte": {
+   "fn_novo": 0,
+   "pares_com_efeito": 3,
+   "removidas": {
+    "T4": 28
+   }
+  },
+  "alfa:configuracao>objeto": {
+   "fn_novo": 0,
+   "pares_com_efeito": 3,
+   "removidas": {
+    "T4": 28
+   }
+  },
+  "rho:cabecalho>objeto:M": {
+   "fn_novo": 154,
+   "pares_com_efeito": 181,
+   "removidas": {
+    "T5": 876,
+    "T2": 881
+   }
+  },
+  "rho:cabecalho_gerado>objeto:A": {
+   "fn_novo": 0,
+   "pares_com_efeito": 1,
+   "removidas": {
+    "T5": 15
+   }
+  },
+  "rho:cabecalho_gerado>objeto:D": {
+   "fn_novo": 0,
+   "pares_com_efeito": 1,
+   "removidas": {
+    "T5": 15
+   }
+  },
+  "rho:cabecalho_gerado>objeto:M": {
+   "fn_novo": 1,
+   "pares_com_efeito": 33,
+   "removidas": {
+    "T5": 462,
+    "T3-FP": 15
+   }
+  },
+  "rho:fonte>objeto:M": {
+   "fn_novo": 107,
+   "pares_com_efeito": 166,
+   "removidas": {
+    "T5": 75,
+    "T2": 12
+   }
+  }
+ }
+}
