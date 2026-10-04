@@ -1,0 +1,147 @@
+{
+  "v": 1,
+  "doi": null,
+  "protocolo": {
+    "arquivo": "artigos/V/aparato/PROTOCOLO_V_2026-10-02.md",
+    "sha256_deposito": null
+  },
+  "sementes": {
+    "principal": null,
+    "ensaio": 0,
+    "bootstrap": 10000
+  },
+  "corpora": {
+    "tz": {
+      "repositorio": "https://github.com/eggert/tz",
+      "congelamento": "bec4d95af5bc600df799bdec8964a4c78e9b57b3",
+      "data_min": "2012-09-01",
+      "ensaio_ultimo": "7550cb98da5f42e9e551f10caa725ce0b6b571b8",
+      "tags": {
+        "primeira": "2012e",
+        "ultima": "2026e"
+      },
+      "janela_zdump": "1800,2100",
+      "janela_zdump_sens": "1970,2037",
+      "cita": "PROTOCOLO_V §2.5, §3.1, §6.4, §12.1"
+    },
+    "zlib": {
+      "repositorio": "https://github.com/madler/zlib",
+      "congelamento": "767c4c947852e143f582c85f14cf573411df1b35",
+      "apos": "10daf0d4d7815447799d555d04d30325836e1d44",
+      "ensaio": [
+        "bcf78a20978d76f64b7cd46d1a4d7a79a578c77b",
+        "9712272c78b9d9c93746d9c8e156a3728c65ca72"
+      ],
+      "quadro_globs": [
+        "*.c",
+        "*.h",
+        "Makefile.in",
+        "configure",
+        "zconf.h.in"
+      ],
+      "quadro_so_raiz": true,
+      "cita": "PROTOCOLO_V §2.5 (quadro zlib: toca *.c ou *.h da raiz, Makefile.in, configure ou zconf.h.in), §12.1"
+    },
+    "lua": {
+      "repositorio": "https://github.com/lua/lua",
+      "congelamento": "0b29f408433e92953cc72b1d3e06c7ac8139e439",
+      "data_min": "2010-01-01",
+      "quadro_globs": [
+        "*.c",
+        "*.h",
+        "makefile"
+      ],
+      "quadro_so_raiz": true,
+      "amostra": 600,
+      "cita": "PROTOCOLO_V §2.5 (quadro Lua: toca *.c ou *.h da raiz, ou makefile; amostra de 600), §12.1"
+    }
+  },
+  "controles": {
+    "nulo_por_commit": true,
+    "nulo_oraculo": "reuso_p1_p2",
+    "placebo_max": 50,
+    "reexecucao_fracao": 0.1,
+    "cita": "PROTOCOLO_V §5 (nulo: um por commit amostrado, construido duas vezes; placebo), §3.5 (10% reexecutado). placebo_max e nulo_oraculo sao leituras de implementacao (EMENDA 1)"
+  },
+  "modulos": {
+    "adaptadores/__init__.py": "e046917ff6d544f2d775b415e15ee875ed07c758660cbf442b4be7e2f4b99c92",
+    "adaptadores/cbuild.py": "bf3f34e9093b0da58eeea1f45a5e569d8794a25b139cb78108d0607be3d16c4a",
+    "adaptadores/decl_lua.json": "dc8c1a5b5811b7b3bfa8275bd3f7679c913518edd41cb97a4014b42c7ed1e74d",
+    "adaptadores/decl_npm.json": "c6c6867013560b04d89a706207356bd47400729f20416b1e828ad41ac876b4c6",
+    "adaptadores/decl_tz.json": "677834306da203bf46d00ebcdc9f6cfe8a7b26ce3be156ebed214e9e7f1a4155",
+    "adaptadores/decl_zlib.json": "fccc4a0daa33aa11401e0f06797c7fc17ddd97e0f33e84f93ebcd5f826278dfd",
+    "adaptadores/git_arvore.py": "e285aa4b924548dda1a50ad8c7606783e56f75461d07657016cae37edf270144",
+    "adaptadores/npm.py": "b532ca23e54210a84a8d710711aaea2e532377b3055ed6e921e8f8bc8ab037c4",
+    "adaptadores/test_npm.py": "7659bbeba5fddd64a5fa86a9d2309f24d1140832e6e0095dbbf32ae491cbc920",
+    "adaptadores/test_tz.py": "edd83460585095d0d1cba01991015d081323e0f0141931d74a7ebe481d462dfc",
+    "adaptadores/tz.py": "3a66dfa316f16a5a0dbd2e34ac208ad714a2dfbe30bdd79461f86cee8233a941",
+    "analise/__init__.py": "6da046837103cf989e7e8eb740bd3a83e07d06e1cd0415d9d2069981527ecc77",
+    "analise/analise.py": "6b73963c33b4a14228e1fe4eb5aa5f46a6e58e2673b7de47aa38c7e428cfe6e9",
+    "analise/gerador_teste.py": "4aac10895be10230a2ff39c570ce268ae8388aebf0136730b9d6410cd17de370",
+    "analise/test_analise.py": "6d41d52b44af0883490aef8d271851fcc3129263ffd9982180aaad33acca1848",
+    "ci/ambiente.yml": "05e95a3bfecd56e9343bd9f2e902ec5cdac65e22024b8683c400650de017066c",
+    "ci/oraculo.yml": "031156c877bf07888780960d5cf9a4906ced0ce87662b38a93fc14fac981257b",
+    "ci/requirements.txt": "4b0743ae6d1548e888e79d0c8cbdfc296aa06a1c58fd0303722718749527ef4e",
+    "corre.py": "3e4ee678f45f0a6d6ca04f5ff0ebe61ed3f46561ee54753d054ccbecc0dd1154",
+    "detectores/__init__.py": "b030b4117a9466e8a8483b43cd6766f1f6c832b225c9b72568164f2ee6c3439c",
+    "detectores/c_classes.py": "e17610114b6178c983fede49df02ac10849e27d6a9d726ceba4196c875347319",
+    "detectores/tz_classes.py": "898d253747b3812ac86f14ba74867dc77f8d0c9e8a48608f79621f26ebef93c1",
+    "ensaio/c_seco.py": "bce26a55be58d283884ac55f8136c057eb9fbb01821fcedc278c584d49c467ec",
+    "ensaio/npm_orcamento.py": "692a4abe98c2453c433397f7932e44988b39b62ea5fc9e07ddd18359ad7f5d7e",
+    "ensaio/sintetico.py": "556ed02b22ce0ca7903277f092a4f915a7ef9a6c3f2262e081a94c1200c4dc9b",
+    "ensaio/tz_seco.py": "11d546bbab978b2b69170543e8b86fa6dad3f3628c1bf30240b138f497131e3d",
+    "ganchos/__init__.py": "604cd1a1a188cc085c83cfdb519465bb9d771a1e55a1932fc1da074e3eab64ee",
+    "ganchos/c_d2x.py": "1408ece644156411bb77f1a497cb6283fa3fee70b9de3dd83b41dfb8d9902a37",
+    "ganchos/c_d3.py": "cb674e03748e84b9da86575799efae4ee1540c524a742202e6ab820b53edf36a",
+    "ganchos/c_d6.py": "dbd5ae6958fd0a44351727aa062180df080fa3c905de97c04d25d692d328a96c",
+    "ganchos/tz_d3.py": "f244d5acd1ce769d26cbaa911464f0566c8360da44565d4514bd17fc57da04e7",
+    "ganchos/tz_d4_ingenuo.py": "000ced7246ef10bf120a3ece98644a2aad3db13472649284ea9b4269e18dd0c9",
+    "ganchos/tz_d4_preciso.py": "431630880eab4129f7f77d6d4a032969a5b917034040ad604aa761974b31c373",
+    "integridade.py": "96983c572d1faa4d5e72aec8b2807384e6f33765a24a5847b775ab321809c8b3",
+    "nucleo/__init__.py": "8af6ffe802a8db26a0f2e38d7cae0aaf90e4605761488c9fa4b6bfa383f6872f",
+    "nucleo/bfs_ref.py": "1a5dbcf25d6d3641800adf51a8f420f6b6df8f297eb52de28d7975e4beaa0e55",
+    "nucleo/fixtures/a7_c/test_a7.py": "46af709684e99b8fa92f79c81280cbbc99769055cbcce009a92f7c8022368daa",
+    "nucleo/reach.py": "beea156ee1231469d51ebbd22d5534feeee7127e2653b43c0275889703e09cd4",
+    "nucleo/test_a6_tz.py": "dccb598826bff8282bf5c31f40e4e7c579d06e6901f8845e144eba9d7ee71864",
+    "nucleo/test_aceitacao.py": "27d00eb29165c0fa0c2ce207fddee82eb33f21a670b5d955b836f9330c531b4e",
+    "oraculo/c_build.sh": "2cecb1dbe675328920089342736cc391181fe80c4f707222be49e118e3eab2eb",
+    "oraculo/npm_lock.sh": "53c03a4bf4751e912ae6490aa2370494d03977f931532a6d675d352c37f7763f",
+    "oraculo/tz_ferramentas.sh": "80502526bcacc942e25316b215a33b6727dd0e2a3e4c337e4551646eb2cd0c2a",
+    "oraculo/tz_zdump.sh": "c94732455836dfe248b6b3ffce3b191576b144fd3999d8b45999fa595902c8d1",
+    "quadro.py": "b71afbfcf4d0eab7a0b3f287682cc74a67e4b2e6ed8cbb7f43d89de7411b5314"
+  },
+  "wheels": {
+    "networkx": {
+      "versao": "3.6.1",
+      "arquivo": "networkx-3.6.1-py3-none-any.whl",
+      "sha256": "d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762"
+    },
+    "pygments": {
+      "versao": "2.21.0",
+      "arquivo": "pygments-2.21.0-py3-none-any.whl",
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+    }
+  },
+  "toolchain": {
+    "imagem_digest": null,
+    "binarios": {
+      "cc1": "5d1679131184e2de4435b426eb264bf13472fe026db8e5c6bc97445814e8e2f4",
+      "gcc": "1b99826121ae6682a634e5efe09bd3e3df58ce58e0b28f849114ab5b89139c26",
+      "make": "d78b8f1d099fbcfb6f2f49ab87223b9b68fb3956642f92d6ec6de812e8afa965",
+      "zdump": "56475c20045a00a8cc51022713e6489759ed3071aa07ed6bae56ed1c40ca39dd",
+      "zic": "30a70bcf657a589c65fbc52ce9b26c4149cc3887ecedf2c07a60fc90dd3e3c27"
+    },
+    "dpkg": {
+      "gcc-13": "13.3.0-6ubuntu2~24.04.1",
+      "make": "4.3-4.1build2"
+    },
+    "gcc_linha1": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "python": "3.11.16",
+    "npm": "10.9.4",
+    "runner_imagem": "ubuntu24 20260927.320.1 (ImageOS/ImageVersion, registrado; nao conferido pela guarda)"
+  },
+  "ci": {
+    "runner": "ubuntu-24.04",
+    "local_autorizado": false
+  }
+}

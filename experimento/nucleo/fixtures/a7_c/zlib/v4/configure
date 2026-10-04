@@ -1,0 +1,11 @@
+#!/bin/sh
+# configure minimo da fixture A7, sabor zlib (PROTOCOLO_V_2026-10-02 §4.2): como o do
+# zlib, copia zconf.h.in para zconf.h e gera Makefile de Makefile.in com CC e CFLAGS
+# do ambiente. Aceita so --static. Nunca e evidencia.
+for a in "$@"; do
+  case "$a" in --static) ;; *) echo "configure: opcao desconhecida: $a" >&2; exit 1 ;; esac
+done
+CC=${CC-cc}
+CFLAGS=${CFLAGS-"-O"}
+cp zconf.h.in zconf.h
+sed -e "s|^CC=.*|CC=$CC|" -e "s|^CFLAGS=.*|CFLAGS=$CFLAGS|" Makefile.in > Makefile

@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "corpus": "lua",
+  "makefiles": {
+    "valor": ["makefile"],
+    "cita": "lua@0b29f408:makefile:60-150 (makefile do proprio commit); PROTOCOLO_V §3.2"
+  },
+  "alvo": {
+    "valor": "o",
+    "cita": "PROTOCOLO_V §3.2 ('o alvo e o quando existe'); lua@0b29f408:makefile:116; lua@0dc09cb4:makefile:83"
+  },
+  "variavel_universo": {
+    "valor": "ALL_O",
+    "cita": "PROTOCOLO_V §3.2 ('senao, a lista ALL_O'); lua@0b29f408:makefile:110; lua@0dc09cb4:makefile:78"
+  },
+  "make_args": {
+    "valor": ["TESTS="],
+    "cita": "PROTOCOLO_V §3.2 ('TESTS= desliga o modo de teste'); lua@e2fc2ce8:makefile:39; lua@0dc09cb4:makefile:33"
+  },
+  "configuracao": {
+    "valor": ["makefile", "ltests.h"],
+    "cita": "PROTOCOLO_V §4.4 (arestas de configuracao: makefile; ltests.h sob TESTS=); lua@0b29f408:makefile:145 ('$(ALL_O): makefile ltests.h')"
+  },
+  "cabecalho_gerado": {
+    "valor": [],
+    "cita": "Lua: nenhum cabecalho gerado pelo build (lua@0b29f408:makefile:131-132,147-148: dependencias geradas por gcc -MM e commitadas, cabecalhos todos versionados)"
+  },
+  "d6_globais": {
+    "valor": [],
+    "cita": "PROTOCOLO_V §4.4 ('d6, Lua. Ja declarado pelo projeto', lua@0b29f408:makefile:145): as arestas makefile -> objeto ja estao em G_decl como configuracao"
+  },
+  "sufixos": {
+    "fonte": [".c"],
+    "cabecalho": [".h"],
+    "objeto": [".o"],
+    "cita": "GNU Make manual 4.3 §10.2 'Catalogue of Built-In Rules' (n.o feito de n.c); gcc 13 manual §3.2 'Options Controlling the Kind of Output' (file.c = C source; file.h = header)"
+  },
+  "placebo_globs": {
+    "valor": ["README*", "ChangeLog*", "contrib/*", "test*"],
+    "cita": "PROTOCOLO_V §5 (pares placebo zlib/Lua: README, ChangeLog, contrib/, test*)"
+  },
+  "d8_nao_det": {
+    "valor": [],
+    "cita": "nenhum nao-determinismo declarado a priori; a execucao dupla do §3 mede o resto"
+  }
+}

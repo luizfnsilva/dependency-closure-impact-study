@@ -1,0 +1,11 @@
+# Makefile.in da fixture A7, sabor zlib (PROTOCOLO_V_2026-10-02 §4.2). Nunca e evidencia.
+# Pre-requisitos de cabecalho escritos a mao; w.h (incluido por x.c) NAO esta declarado.
+CC=cc
+CFLAGS=-O
+OBJS = x.o y.o
+
+libz.a: $(OBJS)
+	ar rc $@ $(OBJS)
+
+x.o: x.h zconf.h
+y.o: y.h zconf.h

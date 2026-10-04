@@ -1,0 +1,6 @@
+Fixture do oraculo npm (oraculo/npm_lock.sh), so para aceitar o pipeline (§4.2: nunca evidencia).
+Dependencias so de tarball local (file:*.tgz), sem registry: o npm nao baixa nada e nenhum pacote
+real e resolvido. "pb-velho" e um apelido de pasta para o pacote pb 2.0.0 (o lockfile guarda o
+nome real em "name"), para exercitar versoes multiplas do mesmo nome no resolvido.tsv.
+Resultado esperado escrito ANTES de rodar: resolvido.tsv = "pa\t1.0.0" e "pb\t2.0.0,3.0.0";
+bytes = 0; codigo 0; duas execucoes dao lockfiles identicos.

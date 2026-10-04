@@ -1,0 +1,7 @@
+# Wheels do experimento V, fixados por sha256 (PROTOCOLO_V §4.1, §6.6). Instalar com:
+#   pip install --require-hashes --only-binary=:all: --no-deps -r ci/requirements.txt
+# Os mesmos valores estao em config.json:wheels (conferidos por integridade.py e auditoria).
+networkx==3.6.1 \
+    --hash=sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762
+pygments==2.21.0 \
+    --hash=sha256:2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9

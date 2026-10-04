@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "corpus": "npm",
+  "quadro": {
+    "pacote": "npm-high-impact",
+    "versao": "1.13.0",
+    "shasum": "b1c57e1418b347fbdc652132a9aef4294a36d079",
+    "tarball": "https://registry.npmjs.org/npm-high-impact/-/npm-high-impact-1.13.0.tgz",
+    "membro": "package/lib/top.js",
+    "cita": "PROTOCOLO_V §2.3 e §12.1 (quadro npm-high-impact@1.13.0, shasum); npm-high-impact@1.13.0:lib/index.js:1 ('export {top as npmHighImpact} from ./top.js'); npm-high-impact@1.13.0:lib/top.d.ts:1 ('export const top: string[]'); shasum = sha1 hex do tarball (pacote@19.0.1:lib/registry.js:150, ssri.fromHex(dist.shasum,'sha1'))"
+  },
+  "raizes": {
+    "n": 200,
+    "uso": "npm_raizes",
+    "ordem_populacao": "nome, ordem de codepoint (sorted() do Python)",
+    "cita": "PROTOCOLO_V §2.3 ('200 raizes sorteadas com a semente do §2.5') e §2.5; INTERFACES §3 (random.Random(f'{principal}:{uso}'), uso npm_raizes)"
+  },
+  "janelas": {
+    "inicio": "2019-01",
+    "fim": "2025-12",
+    "instante": "ultimo milissegundo do mes, UTC (AAAA-MM-<ultimo>T23:59:59.999Z)",
+    "cita": "PROTOCOLO_V §2.3 ('janelas mensais 2019-01 -> 2025-12'); npm@10.9.4:docs/content/using-npm/config.md:215-229 ('on or before': o instante do --before e inclusivo)"
+  },
+  "manifesto": {
+    "manifesto_base": {
+      "name": "v-npm-raiz",
+      "version": "0.0.0",
+      "private": true
+    },
+    "spec_raiz": "latest",
+    "cita": "PROTOCOLO_V §2.3 e §3.3 (manifesto inalterado entre t e t+1); o manifesto-base e o mesmo texto em toda janela e so declara a raiz pela dist-tag; npm@10.9.4:docs/content/configuring-npm/package-json.md:593-598,621-622 (dependencies; 'tag'); npm@10.9.4:docs/content/using-npm/config.md:225-229 (dist-tag sob --before). O manifesto efetivo da raiz e o package.json da versao da raiz resolvida em t: o par (t,t+1) so conta se essa versao e a mesma nos dois lados (mesmo package.json publicado, imutavel no registry)"
+  },
+  "registry": {
+    "valor": "https://registry.npmjs.org/",
+    "cita": "npm@10.9.4:docs/content/using-npm/config.md:1275-1280 (registry, default https://registry.npmjs.org/)"
+  },
+  "teto_bytes": {
+    "valor": 200000000,
+    "medida": "bytes recebidos do servidor nos tuneis CONNECT do contador local (TLS na rede, cabecalhos e corpo comprimido); acumulado no estudo inteiro",
+    "cita": "PROTOCOLO_V §2.3 ('Teto: 200 MB de download. Ao atingi-lo, a corrida para, e o restante entra como NAO_EXECUTADO(teto)'); §2.1 (g); §12.4 D7"
+  },
+  "cadeia": {
+    "npm": "10.9.4",
+    "node": "v22.22.0",
+    "cita": "PROTOCOLO_V §12.3 (node 22 / npm 10.9.4); npm-pick-manifest@10.0.0:lib/index.js:33 (nodeVersion = process.version entra na escolha por engines, por isso o node e fixado)"
+  },
+  "campos_lockfile": {
+    "pacotes": "packages",
+    "raiz": "",
+    "prefixo_caminho": "node_modules/",
+    "arestas": [
+      "dependencies",
+      "optionalDependencies",
+      "peerDependencies"
+    ],
+    "cita": "npm@10.9.4:docs/content/configuring-npm/package-lock-json.md:124-130 (packages; raiz com chave ''), :134 (version), :147-149 (link), :166-167 (dependencies, optionalDependencies); @npmcli/arborist@8.0.1:lib/shrinkwrap.js:85-104 (pkgMetaKeys: name para alias, version, dependencies, peerDependencies, optionalDependencies)"
+  },
+  "d6_globais": {
+    "valor": [],
+    "cita": "npm: nenhuma entrada global declarada no grafo; o instante --before e o estado do registry sao exatamente a ligacao temporal da porta d5 (PROTOCOLO_V §4.5, T1b)"
+  },
+  "d8_nao_det": {
+    "valor": [],
+    "cita": "nenhum nao-determinismo declarado a priori; a execucao dupla do §3 mede o resto"
+  }
+}

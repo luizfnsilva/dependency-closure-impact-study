@@ -1,0 +1,38 @@
+# Medicao do ambiente do runner para a EMENDA 1 (V-0c, ANTES do DOI). Nao roda oraculo nem toca par:
+# so imprime versoes e sha256 dos binarios (gcc, cc1, make, zic, zdump) e as versoes dpkg do runner
+# ubuntu-24.04, para que config.toolchain use os valores do CI e nao os do container de desenvolvimento.
+# Instalar como  .github/workflows/ambiente.yml  no repositorio publico.
+name: ambiente-v
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  medir:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          python -m pip install --require-hashes --only-binary=:all: --no-deps -r experimento/ci/requirements.txt
+      - name: zic e zdump de tz@bec4d95a (so o commit de congelamento)
+        run: |
+          git clone --quiet https://github.com/eggert/tz "$RUNNER_TEMP/tz"
+          bash experimento/oraculo/tz_ferramentas.sh "$RUNNER_TEMP/tz" "$RUNNER_TEMP/tzbin"
+      - name: medir
+        run: |
+          python experimento/integridade.py toolchain "$RUNNER_TEMP/tzbin" | tee toolchain_ci.json
+          python experimento/integridade.py wheels | tee wheels_ci.json
+          gcc --version | head -n1
+          make --version | head -n1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ambiente-ci
+          path: |
+            toolchain_ci.json
+            wheels_ci.json

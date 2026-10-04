@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "corpus": "zlib",
+  "makefiles": {
+    "valor": ["Makefile.in", "Makefile"],
+    "cita": "PROTOCOLO_V §3.2 e INTERFACES §2.2 ('make -pn -f Makefile.in', sem configure); zlib@767c4c94:Makefile.in:59-60,71,129. 'Makefile' so vale onde nao ha Makefile.in: janela de ensaio, zlib@25e5325:Makefile:35"
+  },
+  "alvo": {
+    "valor": "libz.a",
+    "cita": "PROTOCOLO_V §3.2 ('make libz.a'); zlib@767c4c94:Makefile.in:129; zlib@9712272c:Makefile.in:110"
+  },
+  "variavel_universo": {
+    "valor": null,
+    "cita": "zlib: o universo sao os pre-requisitos .o do alvo libz.a (OBJS), zlib@767c4c94:Makefile.in:59-60,71,129"
+  },
+  "make_args": {
+    "valor": [],
+    "cita": "PROTOCOLO_V §3.2: zlib sem argumento de make alem do alvo"
+  },
+  "configuracao": {
+    "valor": ["configure", "Makefile.in", "zconf.h.in"],
+    "cita": "PROTOCOLO_V §4.4 (arestas de configuracao: Makefile.in, configure, zconf.h.in); zlib@767c4c94:configure:642-643"
+  },
+  "cabecalho_gerado": {
+    "valor": ["zconf.h"],
+    "cita": "zlib@767c4c94:configure:642-643 (o configure copia zconf.h.in para zconf.h); zlib@9712272c:configure:292"
+  },
+  "d6_globais": {
+    "valor": ["configure", "Makefile.in", "zconf.h.in"],
+    "cita": "PROTOCOLO_V §4.4 ('d6, zlib. {configure, Makefile.in, zconf.h.in} -> todos os objetos'); §2.2 (entrada fora do grafo)"
+  },
+  "sufixos": {
+    "fonte": [".c"],
+    "cabecalho": [".h"],
+    "objeto": [".o"],
+    "cita": "GNU Make manual 4.3 §10.2 'Catalogue of Built-In Rules' (n.o feito de n.c); gcc 13 manual §3.2 'Options Controlling the Kind of Output' (file.c = C source; file.h = header)"
+  },
+  "placebo_globs": {
+    "valor": ["README*", "ChangeLog*", "contrib/*", "test*"],
+    "cita": "PROTOCOLO_V §5 (pares placebo zlib/Lua: README, ChangeLog, contrib/, test*)"
+  },
+  "d8_nao_det": {
+    "valor": [],
+    "cita": "nenhum nao-determinismo declarado a priori; a execucao dupla do §3 mede o resto"
+  }
+}

@@ -1,0 +1,14 @@
+# Rule	NAME	FROM	TO	-	IN	ON	AT	SAVE	LETTER/S
+Rule	Yr	1970	1975	-	May	1	0:00	1:00	S
+Rule	Yr	1970	1975	-	Sep	1	0:00	0	-
+Rule	Yr	2000	only	-	May	1	1:00	1:00	S
+Rule	Yr	2000	only	-	Sep	1	0:00	0	-
+
+# Zone	NAME		STDOFF	RULES	FORMAT	[UNTIL]
+Zone	Fixa/Beta	2:00	Yr	BX%sT	1990
+			2:00	-	BXT
+
+# Comentario antes de Gama, editado em c (so comentario).
+Zone	Fixa/Gama	3:00	-	GMX
+
+# fim do arquivo (c)

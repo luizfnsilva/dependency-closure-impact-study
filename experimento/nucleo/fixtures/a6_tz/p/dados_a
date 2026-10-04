@@ -1,0 +1,12 @@
+# Fixture A6 (PROTOCOLO_V_2026-10-02 §4.2): dados de tz escritos a mao.
+# Rule	NAME	FROM	TO	-	IN	ON	AT	SAVE	LETTER/S
+Rule	Xr	1950	only	-	Apr	1	2:00	1:00	S
+Rule	Xr	1950	only	-	Oct	1	2:00	0	P
+Rule	Xr	1990	max	-	Mar	lastSun	2:00	1:00	S
+Rule	Xr	1990	max	-	Oct	lastSun	2:00	0	P
+
+# Zone	NAME		STDOFF	RULES	FORMAT	[UNTIL]
+Zone	Fixa/Alfa	1:00	-	FMT	1980
+			1:00	Xr	F%sT
+
+Link	Fixa/Alfa	Fixa/Delta

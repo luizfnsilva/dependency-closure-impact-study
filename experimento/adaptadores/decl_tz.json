@@ -1,0 +1,32 @@
+{
+  "v": 1,
+  "corpus": "tz",
+  "makefile": {
+    "valor": "Makefile",
+    "cita": "tz@bec4d95a:Makefile:653-658 (definicao de TDATA); PROTOCOLO_V §2.5"
+  },
+  "variavel_dados": {
+    "valor": "TDATA",
+    "cita": "tz@bec4d95a:Makefile:658; PROTOCOLO_V §2.5 ('os da variavel TDATA do Makefile')"
+  },
+  "tdata_reserva": {
+    "valor": ["africa", "antarctica", "asia", "australasia", "europe", "northamerica", "southamerica", "etcetera", "factory", "backward"],
+    "cita": "PROTOCOLO_V §2.5 (lista fixa quando o Makefile nao define TDATA); igual a lista embutida em oraculo/tz_zdump.sh (conferido em adaptadores/test_tz.py)"
+  },
+  "excluir_dados": {
+    "valor": ["backzone"],
+    "cita": "PROTOCOLO_V §2.5 ('backzone fora, PACKRATDATA vazio'); tz@bec4d95a:Makefile:186-194"
+  },
+  "placebo_globs": {
+    "valor": ["*.html", "zic.c"],
+    "cita": "PROTOCOLO_V §5 (pares placebo do tz: arquivos que o zic fixado ignora)"
+  },
+  "d6_globais": {
+    "valor": [],
+    "cita": "PROTOCOLO_V §3.1 e §4.4: zic e zdump fixados de tz@bec4d95a; nada fora dos arquivos de dados entra na saida (previsao da H1a, §7)"
+  },
+  "d8_nao_det": {
+    "valor": [],
+    "cita": "nenhum nao-determinismo declarado a priori; a execucao dupla do §3 mede o resto"
+  }
+}
